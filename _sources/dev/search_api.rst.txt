@@ -6,7 +6,7 @@ Search API
 
 The search supports both ``GET`` and ``POST``.
 
-Furthermore, two enpoints ``/`` and ``/search`` are available for querying.
+Furthermore, two endpoints ``/`` and ``/search`` are available for querying.
 
 
 ``GET /``
@@ -76,12 +76,12 @@ Parameters
   supports safe search in the preferences page of an instance.
 
 ``theme`` : default ``oscar``
-  [ ``oscar``, ``simple``, ``legacy``, ``pix-art``, ``courgette`` ]
+  [ ``oscar``, ``simple`` ]
 
   Theme of instance.
 
   Please note, available themes depend on an instance.  It is possible that an
-  instance administrator deleted, created or renamed themes on his/her instance.
+  instance administrator deleted, created or renamed themes on their instance.
   See the available options in the preferences page of the instance.
 
 ``oscar-style`` : default ``logicodev``
@@ -91,7 +91,7 @@ Parameters
   ``oscar``.
 
   Please note, available styles depend on an instance.  It is possible that an
-  instance administrator deleted, created or renamed styles on his/her
+  instance administrator deleted, created or renamed styles on their
   instance. See the available options in the preferences page of the instance.
 
 ``enabled_plugins`` : optional

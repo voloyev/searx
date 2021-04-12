@@ -4,129 +4,52 @@
 Development Quickstart
 ======================
 
-.. sidebar:: :ref:`makefile`
+.. _npm: https://www.npmjs.com/
 
-   For additional developer purpose there are :ref:`makefile`.
-
-This quickstart guide gets your environment set up with searx.  Furthermore, it
-gives a short introduction to the ``manage.sh`` script.
-
-How to setup your development environment
-=========================================
-
-.. sidebar:: :ref:`make pyenv <make pyenv>`
-
-   Alternatively use the :ref:`make pyenv`.
-
-First, clone the source code of searx to the desired folder.  In this case the
-source is cloned to ``~/myprojects/searx``.  Then create and activate the
-searx-ve virtualenv and install the required packages using ``manage.sh``.
+Searx loves developers, just clone and start hacking.  All the rest is done for
+you simply by using :ref:`make <makefile>`.
 
 .. code:: sh
 
-    cd ~/myprojects
-    git clone https://github.com/asciimoo/searx.git
-    cd searx
-    virtualenv searx-ve
-    . ./searx-ve/bin/activate
-    ./manage.sh update_dev_packages
+    git clone https://github.com/searx/searx.git
 
+Here is how a minimal workflow looks like:
 
-How to run tests
-================
+1. *start* hacking
+2. *run* your code: :ref:`make run`
+3. *test* your code: :ref:`make test`
 
-.. sidebar:: :ref:`make test.unit <make test>`
+If you think at some point something fails, go back to *start*.  Otherwise,
+choose a meaningful commit message and we are happy to receive your pull
+request. To not end in *wild west* we have some directives, please pay attention
+to our ":ref:`how to contribute`" guideline.
 
-   Alternatively use the ``test.pep8``, ``test.unit``, ``test.robot`` targets.
-
-Tests can be run using the ``manage.sh`` script.  Following tests and checks are
-available:
-
-- Unit tests
-- Selenium tests
-- PEP8 validation
-- Unit test coverage check
-
-For example unit tests are run with the command below:
+If you implement themes, you will need to compile styles and JavaScript before
+*run*.
 
 .. code:: sh
 
-   ./manage.sh unit_tests
+   make themes
 
-For further test options, please consult the help of the ``manage.sh`` script or
-read :ref:`make test`.
+Don't forget to install npm_ first.
 
+.. tabs::
 
-How to compile styles and javascript
-====================================
+   .. group-tab:: Ubuntu / debian
 
-.. _less: http://lesscss.org/
-.. _NodeJS: https://nodejs.org
+      .. code:: sh
 
-How to build styles
--------------------
+         sudo -H apt-get install npm
 
-Less_ is required to build the styles of searx.  Less_ can be installed using
-either NodeJS_ or Apt.
+   .. group-tab:: Arch Linux
 
-.. code:: sh
+      .. code-block:: sh
 
-   sudo -H apt-get install nodejs
-   sudo -H npm install -g less
+         sudo -H pacman -S npm
 
-OR
+   .. group-tab::  Fedora / RHEL
 
-.. code:: sh
+      .. code-block:: sh
 
-   sudo -H apt-get install node-less
+	 sudo -H dnf install npm
 
-After satisfying the requirements styles can be build using ``manage.sh``
-
-.. code:: sh
-
-   ./manage.sh styles
-
-
-How to build the source of the oscar theme
-==========================================
-
-.. _grunt: https://gruntjs.com/
-
-Grunt_ must be installed in order to build the javascript sources. It depends on
-NodeJS, so first Node has to be installed.
-
-.. code:: sh
-
-   sudo -H apt-get install nodejs
-   sudo -H npm install -g grunt-cli
-
-After installing grunt, the files can be built using the following command:
-
-.. code:: sh
-
-   ./manage.sh grunt_build
-
-
-Tips for debugging/development
-==============================
-
-.. sidebar:: :ref:`make run`
-
-   Makefile target ``run`` already enables debug option for your developer
-   session / see :ref:`make run`.
-
-Turn on debug logging
-  Whether you are working on a new engine or trying to eliminate a bug, it is
-  always a good idea to turn on debug logging.  When debug logging is enabled a
-  stack trace appears, instead of the cryptic ``Internal Server Error``
-  message. It can be turned on by setting ``debug: False`` to ``debug: True`` in
-  :origin:`settings.yml <searx/settings.yml>`.
-
-.. sidebar:: :ref:`make test`
-
-   Alternatively use the :ref:`make test` targets.
-
-Run ``./manage.sh tests`` before creating a PR.
-  Failing build on Travis is common because of PEP8 checks.  So a new commit
-  must be created containing these format fixes.  This phase can be skipped if
-  ``./manage.sh tests`` is run locally before creating a PR.

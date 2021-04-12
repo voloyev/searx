@@ -1,14 +1,28 @@
-.. _engines generic:
-
 =======
 Engines
 =======
 
+Special Engine Settings
+=======================
+
 .. sidebar:: Further reading ..
 
    - :ref:`settings engine`
-   - :ref:`engine settings`
-   - :ref:`engine file`
+   - :ref:`engine settings` & :ref:`engine file`
+
+.. toctree::
+   :maxdepth: 1
+
+   engines/recoll.rst
+
+
+.. _engines generic:
+
+General Engine Settings
+=======================
+
+Explanation of the :ref:`general engine configuration` shown in the table
+:ref:`configured engines`.
 
 ============= =========== ==================== ============
 :ref:`engine settings`    :ref:`engine file`
@@ -19,20 +33,20 @@ Engine        ..          Paging support       **P**
 ------------------------- -------------------- ------------
 Shortcut      **S**       Language support     **L**
 Timeout       **TO**      Time range support   **TR**
-Disabled      **D**       Offline              **O**
+Disabled      **D**       Engine type          **ET**
 ------------- ----------- -------------------- ------------
 Safe search   **SS**
 ------------- ----------- ---------------------------------
 Weigth        **W**
 ------------- ----------- ---------------------------------
 Disabled      **D**
+------------- ----------- ---------------------------------
+Show errors   **DE**
 ============= =========== =================================
-
-Configuration defaults (at built time):
 
 .. _configured engines:
 
-.. jinja:: webapp
+.. jinja:: searx
 
    .. flat-table:: Engines configured at built time (defaults)
       :header-rows: 1
@@ -48,9 +62,10 @@ Configuration defaults (at built time):
         - SS
         - D
         - TR
-        - O
-	- W
-	- D
+        - ET
+        - W
+        - D
+        - DE
 
       {% for name, mod in engines.items() %}
 
@@ -64,8 +79,10 @@ Configuration defaults (at built time):
         - {{(mod.safesearch and "y") or ""}}
         - {{(mod.disabled and "y") or ""}}
         - {{(mod.time_range_support and "y") or ""}}
-        - {{(mod.offline and "y") or ""}}
+        - {{mod.engine_type or ""}}
         - {{mod.weight or 1 }}
         - {{(mod.disabled and "y") or ""}}
+        - {{(mod.display_error_messages and "y") or ""}}
 
      {% endfor %}
+

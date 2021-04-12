@@ -8,56 +8,24 @@ Makefile Targets
 
 .. sidebar:: build environment
 
-   Before looking deeper at the targets, first read about :ref:`makefile setup`
-   and :ref:`make pyenv`.
+   Before looking deeper at the targets, first read about :ref:`make pyenv`.
+
+   To install system requirements follow :ref:`buildhosts`.
 
 With the aim to simplify development cycles, started with :pull:`1756` a
 ``Makefile`` based boilerplate was added.  If you are not familiar with
 Makefiles, we recommend to read gnu-make_ introduction.
 
 The usage is simple, just type ``make {target-name}`` to *build* a target.
-Calling the ``help`` target gives a first overview::
+Calling the ``help`` target gives a first overview (``make help``):
 
-  $ make help
-    test      - run developer tests
-    docs      - build documentation
-    docs-live - autobuild HTML documentation while editing
-    run       - run developer instance
-    install   - developer install (./local)
-    uninstall - uninstall (./local)
-    gh-pages  - build docs & deploy on gh-pages branch
-    clean     - drop builds and environments
-    ...
+.. program-output:: bash -c "cd ..; make --no-print-directory help"
+
 
 .. contents:: Contents
    :depth: 2
    :local:
    :backlinks: entry
-
-
-.. _makefile setup:
-
-Setup
-=====
-
-.. _git stash: https://git-scm.com/docs/git-stash
-
-The main setup is done in the :origin:`Makefile`::
-
-  export GIT_URL=https://github.com/asciimoo/searx
-  export SEARX_URL=https://searx.me
-  export DOCS_URL=https://asciimoo.github.io/searx
-
-.. sidebar:: fork & upstream
-
-   Commit changes in your (local) branch, fork or whatever, but do not push them
-   upstream / `git stash`_ is your friend.
-
-:GIT_URL: Changes this, to point to your searx fork.
-
-:SEARX_URL: Changes this, to point to your searx instance.
-
-:DOCS_URL: If you host your own (branded) documentation, change this URL.
 
 .. _make pyenv:
 
@@ -68,7 +36,7 @@ Python environment
 
    ``source ./local/py3/bin/activate``
 
-With Makefile we do no longer need to build up the virualenv manually (as
+With Makefile we do no longer need to build up the virtualenv manually (as
 described in the :ref:`devquickstart` guide).  Jump into your git working tree
 and release a ``make pyenv``:
 
@@ -148,7 +116,36 @@ clean`` stop all processes using :ref:`make pyenv`.
 We describe the usage of the ``doc*`` targets in the :ref:`How to contribute /
 Documentation <contrib docs>` section.  If you want to edit the documentation
 read our :ref:`make docs-live` section.  If you are working in your own brand,
-adjust your :ref:`Makefile setup <makefile setup>`.
+adjust your :ref:`settings global`.
+
+.. _make books:
+
+``make books/{name}.html books/{name}.pdf``
+===========================================
+
+.. _intersphinx: https://www.sphinx-doc.org/en/stable/ext/intersphinx.html
+.. _XeTeX: https://tug.org/xetex/
+
+.. sidebar:: info
+
+   To build PDF a XeTeX_ is needed, see :ref:`buildhosts`.
+
+
+The ``books/{name}.*`` targets are building *books*.  A *book* is a
+sub-directory containing a ``conf.py`` file.  One example is the user handbook
+which can deployed separately (:origin:`docs/user/conf.py`).  Such ``conf.py``
+do inherit from :origin:`docs/conf.py` and overwrite values to fit *book's*
+needs.
+
+With the help of Intersphinx_ (:ref:`reST smart ref`) the links to searx’s
+documentation outside of the book will be bound by the object inventory of
+``DOCS_URL``.  Take into account that URLs will be picked from the inventary at
+documentation's build time.
+
+Use ``make docs-help`` to see which books available:
+
+.. program-output:: bash -c "cd ..; make --no-print-directory docs-help"
+   :ellipsis: 0,-6
 
 
 .. _make gh-pages:
@@ -156,8 +153,8 @@ adjust your :ref:`Makefile setup <makefile setup>`.
 ``make gh-pages``
 =================
 
-To deploy on github.io first adjust your :ref:`Makefile setup <makefile
-setup>`.  For any further read :ref:`deploy on github.io`.
+To deploy on github.io first adjust your :ref:`settings global`.  For any
+further read :ref:`deploy on github.io`.
 
 .. _make test:
 
@@ -170,7 +167,7 @@ e.g.:
 
 .. code:: sh
 
-  $ make test.pep8 test.unit
+  $ make test.pep8 test.unit test.sh
   . ./local/py3/bin/activate; ./manage.sh pep8_check
   [!] Running pep8 check
   . ./local/py3/bin/activate; ./manage.sh unit_tests

@@ -1,22 +1,23 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Plugins builtin &#8212; Searx Documentation (Searx-0.16.0.tex)</title>
-    <link rel="stylesheet" href="../_static/searx.css" type="text/css" />
+    <title>Plugins builtin &#8212; Searx Documentation (Searx-1.0.0.tex)</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/searx.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
     <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Buildhosts" href="buildhosts.html" />
-    <link rel="prev" title="Engines" href="engines.html" />
+    <link rel="prev" title="Recoll" href="engines/recoll.html" />
   <script>DOCUMENTATION_OPTIONS.URL_ROOT = '../';</script>
    
   </head><body>
@@ -27,13 +28,17 @@
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
           <a href="buildhosts.html" title="Buildhosts"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="engines.html" title="Engines"
+          <a href="engines/recoll.html" title="Recoll"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">Searx Documentation (Searx-0.16.0.tex)</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Administrator documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">Searx Documentation (Searx-1.0.0.tex)</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Administrator documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Plugins builtin</a></li> 
       </ul>
     </div>  
 
@@ -76,24 +81,20 @@
 <td></td>
 <td><p>Avoid paywalls by redirecting to open-access versions of publications when available</p></td>
 </tr>
-<tr class="row-odd"><th class="stub"><p>HTTPS rewrite</p></th>
+<tr class="row-odd"><th class="stub"><p>Hash plugin</p></th>
+<td><p>y</p></td>
+<td><p>Converts strings to different hash digests.</p></td>
+</tr>
+<tr class="row-even"><th class="stub"><p>HTTPS rewrite</p></th>
 <td><p>y</p></td>
 <td><p>Rewrite HTTP links to HTTPS if possible</p></td>
 </tr>
-<tr class="row-even"><th class="stub"><p>Infinite scroll</p></th>
+<tr class="row-odd"><th class="stub"><p>Infinite scroll</p></th>
 <td></td>
 <td><p>Automatically load next page when scrolling to bottom of current page</p>
 <div class="line-block">
 <div class="line"><code class="docutils literal notranslate"><span class="pre">plugins/js/infinite_scroll.js</span></code> </div>
 <div class="line"><code class="docutils literal notranslate"><span class="pre">plugins/css/infinite_scroll.css</span></code> </div>
-</div>
-</td>
-</tr>
-<tr class="row-odd"><th class="stub"><p>Open result links on new browser tabs</p></th>
-<td></td>
-<td><p>Results are opened in the same window by default. This plugin overwrites the default behaviour to open links on new tabs/windows. (JavaScript required)</p>
-<div class="line-block">
-<div class="line"><code class="docutils literal notranslate"><span class="pre">plugins/js/open_results_on_new_tab.js</span></code> </div>
 </div>
 </td>
 </tr>
@@ -122,15 +123,12 @@
 </div>
 </td>
 </tr>
-<tr class="row-even"><th class="stub"><p>Test</p></th>
-<td></td>
-<td><p>Test plugin</p></td>
-</tr>
 </tbody>
 </table>
 </div>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
@@ -146,20 +144,22 @@
 
   <h3>Project Links</h3>
   <ul>
-    <li><a href="https://github.com/asciimoo/searx">Source</a>
+    <li><a href="https://github.com/searx/searx">Source</a>
   
-    <li><a href="https://github.com/asciimoo/searx/wiki">Wiki</a>
+    <li><a href="https://github.com/searx/searx/wiki">Wiki</a>
   
-    <li><a href="https://searx.space/">Public instances</a>
+    <li><a href="https://searx.space">Public instances</a>
   
     <li><a href="https://twitter.com/Searx_engine">Twitter</a>
+  
+    <li><a href="https://github.com/searx/searx/issues">Issue Tracker</a>
   </ul><h3>Navigation</h3>
 <ul>
   <li><a href="../index.html">Overview</a>
     <ul>
       <li><a href="index.html">Administrator documentation</a>
         <ul>
-          <li>Previous: <a href="engines.html" title="previous chapter">Engines</a>
+          <li>Previous: <a href="engines/recoll.html" title="previous chapter">Recoll</a>
           <li>Next: <a href="buildhosts.html" title="next chapter">Buildhosts</a></ul>
       </li>
     </ul>
@@ -182,7 +182,7 @@
   
     <div class="footer" role="contentinfo">
         &#169; Copyright 2015-2020, Adam Tauber, Noémi Ványi.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.4.4.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.3.
     </div>
   <script src="../_static/version_warning_offset.js"></script>
 

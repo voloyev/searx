@@ -319,14 +319,18 @@ To list all anchors of the inventory (e.g. ``python``) use:
 .. code:: sh
 
    $ python -m sphinx.ext.intersphinx https://docs.python.org/3/objects.inv
+   ...
+   $ python -m sphinx.ext.intersphinx https://searx.github.io/searx/objects.inv
+   ...
 
 Literal blocks
 ==============
 
 The simplest form of :duref:`literal-blocks` is a indented block introduced by
 two colons (``::``).  For highlighting use :dudir:`highlight` or :ref:`reST
-code` directive.  To include literals from external files use directive
-:dudir:`literalinclude`.
+code` directive.  To include literals from external files use
+:rst:dir:`literalinclude` or :ref:`kernel-include <kernel-include-directive>`
+directive (latter one expands environment variables in the path name).
 
 .. _reST literal:
 
@@ -1285,15 +1289,21 @@ build chapter: :ref:`engines generic`.  Below the jinja directive from the
    :language: reST
    :start-after: .. _configured engines:
 
-The context for the template is selected in the line ``.. jinja:: webapp``.  In
-sphinx's build configuration (:origin:`docs/conf.py`) the ``webapp`` context
-points to the name space of the python module: ``webapp``.
+The context for the template is selected in the line ``.. jinja:: searx``.  In
+sphinx's build configuration (:origin:`docs/conf.py`) the ``searx`` context
+contains the ``engines`` and ``plugins``.
 
 .. code:: py
 
-   from searx import webapp
+   import searx.search
+   import searx.engines
+   import searx.plugins
+   searx.search.initialize()
    jinja_contexts = {
-       'webapp': dict(**webapp.__dict__)
+      'searx': {
+         'engines': searx.engines.engines,
+         'plugins': searx.plugins.plugins
+      },
    }
 
 
@@ -1312,9 +1322,8 @@ others are basic-tabs_ and code-tabs_.  Below a *group-tab* example from
 
 .. literalinclude:: ../admin/buildhosts.rst
    :language: reST
-   :start-after: .. _system requirements:
-   :end-before: .. _system requirements END:
-
+   :start-after: .. SNIP sh lint requirements
+   :end-before: .. SNAP sh lint requirements
 
 .. _math:
 
@@ -1391,27 +1400,27 @@ The next example shows the difference of ``\tfrac`` (*textstyle*) and ``\dfrac``
 
 .. _readability: https://docs.python-guide.org/writing/style/
 .. _Sphinx-Primer:
-    http://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html
+    https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html
 .. _reST: https://docutils.sourceforge.io/rst.html
 .. _Sphinx Roles:
     https://www.sphinx-doc.org/en/master/usage/restructuredtext/roles.html
-.. _Sphinx: http://www.sphinx-doc.org
-.. _`sphinx-doc FAQ`: http://www.sphinx-doc.org/en/stable/faq.html
+.. _Sphinx: https://www.sphinx-doc.org
+.. _`sphinx-doc FAQ`: https://www.sphinx-doc.org/en/stable/faq.html
 .. _Sphinx markup constructs:
-    http://www.sphinx-doc.org/en/stable/markup/index.html
+    https://www.sphinx-doc.org/en/stable/markup/index.html
 .. _`sphinx cross references`:
-    http://www.sphinx-doc.org/en/stable/markup/inline.html#cross-referencing-arbitrary-locations
+    https://www.sphinx-doc.org/en/stable/markup/inline.html#cross-referencing-arbitrary-locations
 .. _sphinx.ext.extlinks:
     https://www.sphinx-doc.org/en/master/usage/extensions/extlinks.html
-.. _intersphinx: http://www.sphinx-doc.org/en/stable/ext/intersphinx.html
-.. _sphinx config: http://www.sphinx-doc.org/en/stable/config.html
-.. _Sphinx's autodoc: http://www.sphinx-doc.org/en/stable/ext/autodoc.html
+.. _intersphinx: https://www.sphinx-doc.org/en/stable/ext/intersphinx.html
+.. _sphinx config: https://www.sphinx-doc.org/en/stable/config.html
+.. _Sphinx's autodoc: https://www.sphinx-doc.org/en/stable/ext/autodoc.html
 .. _Sphinx's Python domain:
-    http://www.sphinx-doc.org/en/stable/domains.html#the-python-domain
+    https://www.sphinx-doc.org/en/stable/domains.html#the-python-domain
 .. _Sphinx's C domain:
-   http://www.sphinx-doc.org/en/stable/domains.html#cross-referencing-c-constructs
+   https://www.sphinx-doc.org/en/stable/domains.html#cross-referencing-c-constructs
 .. _doctree:
-    http://www.sphinx-doc.org/en/master/extdev/tutorial.html?highlight=doctree#build-phases
+    https://www.sphinx-doc.org/en/master/extdev/tutorial.html?highlight=doctree#build-phases
 .. _docutils: http://docutils.sourceforge.net/docs/index.html
 .. _docutils FAQ: http://docutils.sourceforge.net/FAQ.html
 .. _linuxdoc: https://return42.github.io/linuxdoc
@@ -1424,5 +1433,5 @@ The next example shows the difference of ``\tfrac`` (*textstyle*) and ``\dfrac``
 .. _ImageMagick: https://www.imagemagick.org
 
 .. _`Emacs Table Mode`: https://www.emacswiki.org/emacs/TableMode
-.. _`Online Tables Generator`: http://www.tablesgenerator.com/text_tables
+.. _`Online Tables Generator`: https://www.tablesgenerator.com/text_tables
 .. _`OASIS XML Exchange Table Model`: https://www.oasis-open.org/specs/tm9901.html
